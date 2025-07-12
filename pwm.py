@@ -68,3 +68,18 @@ print("\tLog-Odds Matrix\t")
 print('Pos\tA\tC\tG\tT')
 for i, row in enumerate(pwm_matrix): 
     print(f"{i+1}\t{row['A']:.2f}\t{row['C']:.2f}\t{row['G']:.2f}\t{row['T']:.2f}")
+      
+scores = []
+with gzip.open(sys.argv[1], 'rt') as fp: 
+    for line in fp: 
+        words = line.split()
+        strand = str(words[0])
+        if '-' in strand: continue # meaning we are doing plus strand
+        site_one = list(words[1])[10:15]
+        score = 0 
+        for nt in site_one: 
+            for row in pwm_matrix: 
+                if nt in row: 
+                    print(nt, row[nt])
+                else: continue
+        
