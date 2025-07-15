@@ -89,9 +89,10 @@ with gzip.open(sys.argv[1], 'rt') as fp:
 x = np.array(geneexp)
 y = np.array(ssa_diff)
 plt.scatter(x, y, s=0.5, color = 'black')
-plt.xlabel('log-odds site a / site b')
+plt.xlabel('log-odds (site a / site b)')
 plt.ylabel('SSA - SSB')
 plt.title(f'SS difference vs Gene expression', fontsize = 18)
+plt.savefig("pwm_scatter.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 
