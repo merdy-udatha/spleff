@@ -3,6 +3,8 @@
 import sys 
 import gzip 
 import math
+from matplotlib import pyplot as plt 
+import numpy as np
 
 def pwm_matrix(splice_site_len, nt_start, strand_no, name): 
     positions = [[] for i in range(splice_site_len)]
@@ -45,7 +47,8 @@ def pwm_matrix(splice_site_len, nt_start, strand_no, name):
     #    print(f"{i+1}\t{row['A']:.2f}\t{row['C']:.2f}\t{row['G']:.2f}\t{row['T']:.2f}")
     return pwm
 
-scores = [] 
+ssa_diff = [] 
+geneexp = []
 pwm_donor = pwm_matrix(5, 10, 1, "donor_site 1")
 pwm_acc = pwm_matrix(6, 26, 1, "acc_site 1")
 a = 1
@@ -73,10 +76,23 @@ with gzip.open(sys.argv[1], 'rt') as fp:
         for nt, row in zip(acc_site_b, pwm_acc):
             if nt in row:
                 score_b += row[nt]
-        print(score_a - score_b, math.log2(float(words[2]) / float(words[4]))) 
-        
+        ssa_diff.append(score_a - score_b)
+        geneexp.append(math.log2(float(words[2]) / float(words[4])))
 
 
+
+
+
+
+
+
+x = np.array(geneexp)
+y = np.array(ssa_diff)
+plt.scatter(x, y, s=0.5, color = 'black')
+plt.xlabel('log-odds site a / site b')
+plt.ylabel('SSA - SSB')
+plt.title(f'SS difference vs Gene expression', fontsize = 18)
+plt.show()
 
 
 	
