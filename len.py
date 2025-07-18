@@ -4,7 +4,18 @@
 import sys 
 import gzip 
 
+genes = []
+scores = []
 with gzip.open(sys.argv[1], 'rt') as fp: 
-    for line in fp: 
+    for i, line in enumerate(fp): 
         words = line.split()
-        
+        gene = words[0]
+        genes.append(gene)
+        scores.append(words[2])
+        if gene != genes[i - 1]: continue 
+        else: 
+            
+        print(i, words[0], words[1], words[2])
+                
+                
+            
