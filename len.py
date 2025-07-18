@@ -4,18 +4,32 @@
 import sys 
 import gzip 
 
-genes = []
-scores = []
+
+genes = {}
 with gzip.open(sys.argv[1], 'rt') as fp: 
-    for i, line in enumerate(fp): 
+    for line in fp: 
         words = line.split()
         gene = words[0]
-        genes.append(gene)
-        scores.append(words[2])
-        if gene != genes[i - 1]: continue 
-        else: 
-            
-        print(i, words[0], words[1], words[2])
-                
+        length = float(words[1])
+        reads = float(words[2])
+        if gene not in genes:
+            genes[gene] = {'length': length, 'reads': reads}
+        else:
+            genes[gene]['length'] = length
+            genes[gene]['reads']  = reads - genes[gene]['reads']
+	
+length = []
+reads =  []
+for gene in genes:
+    length.append(genes[gene]['length'])
+    reads.append(genes[gene]['reads'])
+	
+for len, read in zip (length, reads):
+    print(len, read)
+
+	
+		
+		
+        		
                 
             
