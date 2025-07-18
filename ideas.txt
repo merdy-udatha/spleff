@@ -1,0 +1,6 @@
+Random but fun stuff to try with expbias & lenbias files 
+- taking a look at outlier cases 
+- look at splice sites of very low read areas 
+- take a closer look at sections of genes that have reads that go down and then suddenly up
+   ^ what is in that sequence that makes it go up? 
+   maybe some type of motif that helps the reverse transcriptase get back on track
