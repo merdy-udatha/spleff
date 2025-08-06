@@ -3,6 +3,8 @@
 # so for example, a 1000 nt gene that lost 100000 reads will have a score of -100, which is better than a 1000 nt gene that dropped 500000 - has a score of -500
 import sys 
 import gzip 
+from matplotlib import pyplot as plt 
+import numpy as np
 
 genes = {}
 with gzip.open(sys.argv[1], 'rt') as fp: 
@@ -19,7 +21,7 @@ with gzip.open(sys.argv[1], 'rt') as fp:
     reads = []
     for gene in genes: 
         length.append(genes[gene][::-1][1])
-        reads.append(genes[gene][::-1][0] - genes[gene][1])
+        reads.append((genes[gene][::-1][0] - genes[gene][1])/ genes[gene][::-1][1])
 
 
 
