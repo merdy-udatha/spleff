@@ -6,6 +6,7 @@ import gzip
 from matplotlib import pyplot as plt 
 import numpy as np
 
+
 genes = {}
 with gzip.open(sys.argv[1], 'rt') as fp: 
     for line in fp: 
@@ -20,8 +21,12 @@ with gzip.open(sys.argv[1], 'rt') as fp:
     length = []
     reads = []
     for gene in genes: 
+        if ((genes[gene][::-1][0] - genes[gene][1])/ genes[gene][::-1][1]) == 0: continue
         length.append(genes[gene][::-1][1])
         reads.append((genes[gene][::-1][0] - genes[gene][1])/ genes[gene][::-1][1])
+
+for len, rds in zip(length, reads):
+    print(len, rds)
 
 
 
@@ -33,7 +38,7 @@ plt.ylabel('Net change in reads')
 plt.title(f'Net change in reads vs Gene length (nt)', fontsize = 18)
 # plt.savefig("pwm_scatter.png", dpi=300, bbox_inches='tight')
 plt.show()
-		
+
 		
         		
                 
