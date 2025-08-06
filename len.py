@@ -4,30 +4,33 @@
 import sys 
 import gzip 
 
-
 genes = {}
 with gzip.open(sys.argv[1], 'rt') as fp: 
     for line in fp: 
         words = line.split()
-        gene = words[0]
+        gene = words[0] 
         length = float(words[1])
         reads = float(words[2])
-        if gene not in genes:
-            genes[gene] = {'length': length, 'reads': reads}
-        else:
-            genes[gene]['length'] = length
-            genes[gene]['reads']  = reads - genes[gene]['reads']
-	
-length = []
-reads =  []
-for gene in genes:
-    length.append(genes[gene]['length'])
-    reads.append(genes[gene]['reads'])
-	
-for len, read in zip (length, reads):
-    print(len, read)
+        if gene not in genes: 
+            genes[gene] = []
+        genes[gene].append(length)
+        genes[gene].append(reads)
+    length = []
+    reads = []
+    for gene in genes: 
+        length.append(genes[gene][::-1][1])
+        reads.append(genes[gene][::-1][0] - genes[gene][1])
 
-	
+
+
+x = np.array(length)
+y = np.array(reads)
+plt.scatter(x, y, s=0.5, color = 'black')
+plt.xlabel('Gene length (nt)')
+plt.ylabel('Net change in reads')
+plt.title(f'Net change in reads vs Gene length (nt)', fontsize = 18)
+# plt.savefig("pwm_scatter.png", dpi=300, bbox_inches='tight')
+plt.show()
 		
 		
         		
