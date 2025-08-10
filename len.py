@@ -34,9 +34,9 @@ x = np.array(length)
 y = np.array(reads)
 plt.scatter(x, y, s=0.5, color = 'black')
 plt.xlabel('Gene length (nt)')
-plt.ylabel('Net change in reads')
+plt.ylabel('Retention Score')
 plt.title(f'Net change in reads vs Gene length (nt)', fontsize = 18)
-# plt.savefig("pwm_scatter.png", dpi=300, bbox_inches='tight')
+plt.savefig("len_scatter.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 		
